@@ -1,0 +1,67 @@
+
+
+<br>
+<hr>
+<table>
+    <div *ngIf="hasPizza; then open else close"></div>
+    <ng-template #open>
+    <tr>
+           <th rowspan='2'>Topping</th>        
+            <th [attr.colspan]="PizzaLength">Pizza Size</th>
+            
+        </tr>
+        <tr>
+            <th *ngFor="let item of pizzaList">{{item.size}} {{item.doughPrice|display:'c'}}</th>
+        </tr>
+        <th [attr.colspan]="PizzaLength+1">Veg Topping</th>
+        
+        <tr *ngFor="let item of vegToppings" >
+            <td> {{item.data.name}} {{item.data.price|display:'c'}}</td>
+            <td *ngFor="let p of pizzaList"> 
+                <span *ngIf="p.toppings.includes(item.data.name)">checked</span>
+                                
+            </td>
+        </tr>
+        <th [attr.colspan]="PizzaLength+1">Non Veg Topping</th>
+        
+        <tr *ngFor="let item of nonVegToppings" >
+            <td> {{item.data.name}} {{item.data.price|display:'c'}}</td>
+            <td *ngFor="let p of pizzaList"> 
+                <span *ngIf="p.toppings.includes(item.data.name)">checked</span>
+                                
+            </td>
+        </tr>
+        
+        <th [attr.colspan]="PizzaLength+1">Total </th>
+        <tr>
+            <td>offer:</td>
+            <td *ngFor="let p of pizzaList">
+                
+                <span *ngIf="p.offer">{{p.offer}}</span>
+            </td>
+        </tr>
+        <tr>
+            <th [attr.colspan]="PizzaLength + 1">Price</th>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            
+            <td *ngFor="let p of pizzaList">
+                <span *ngIf="p.price"> {{p.price | display:'c'}} <s><span>{{p.originalPrice}}</span></s> </span>
+                <span *ngIf="!p.price"> {{p.originalPrice | display:'c'}}  </span>
+            </td>
+        </tr>
+ 
+    </ng-template>
+    <ng-template #close>
+        <tr>
+            <th>
+                no pizza in your order
+            </th>
+        </tr>
+    </ng-template>
+</table>
+<div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+    
+<button (click)="startOver()">start over</button>
+</div>

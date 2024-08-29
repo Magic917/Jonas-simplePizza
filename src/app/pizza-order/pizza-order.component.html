@@ -1,0 +1,33 @@
+<hr>
+<br>
+<p  class="centered-text p3" >Select the size of your pizza</p>
+
+<table>
+
+    <tr>
+        <th *ngFor="let item of sizeList" (click)="addSize(item.data.size)" [ngClass]="{'sth':selectedSize==item.data.size}" >{{item.data.size}} </th>
+     
+    </tr>
+
+</table>
+<div>
+    <p *ngIf="orderMessage" class="alert-warning">{{orderMessage}}</p>
+</div>
+<div padding=20>
+    <hr>
+</div>
+<p  class="centered-text p3">choose your topping here</p>
+
+<table class="secondary-table">
+    <tr *ngFor="let topping of toppingList" (click)="addTopping(topping.data.name)" [ngClass]="{'sth': selectedToppings.includes(topping.data.name)}">
+      <td>{{ topping.data.name }} {{topping.data.price|display:'c'}}</td>
+    </tr>
+  </table>
+
+ <div class="centered-text">
+
+<button (click)="savePizza()">add another</button>
+<button (click)="startOver()">start over</button>
+<button (click)="checkOut()">check out</button>
+
+  </div>
