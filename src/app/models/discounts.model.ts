@@ -21,16 +21,17 @@ export class Discount {
       });
   
       // promote 2: 2 medium with 4 toppings each for $9
-      const mediumPairs = Math.floor(mediumPizzas.length / 2);
-      for (let i = 0; i < mediumPairs * 2; i += 2) {
-        if (mediumPizzas[i].toppingCounts === 4 && mediumPizzas[i + 1].toppingCounts === 4) {
-          mediumPizzas[i].price = 4.5;  
-          mediumPizzas[i].offer = 'Offer 2';  
-          mediumPizzas[i + 1].price = 4.5;
-          mediumPizzas[i + 1].offer = 'Offer 2';
-          
-        }
-      }
+      let mediumWithFourToppings = mediumPizzas.filter(p => p.toppingCounts === 4);
+    while (mediumWithFourToppings.length >= 2) {
+        // Apply the offer to the first two pizzas in the filtered list
+        mediumWithFourToppings[0].price = 4.5;
+        mediumWithFourToppings[0].offer = 'Offer 2';
+        mediumWithFourToppings[1].price = 4.5;
+        mediumWithFourToppings[1].offer = 'Offer 2';
+
+        // Remove these pizzas from the list to avoid reapplying the discount
+        mediumWithFourToppings.splice(0, 2);
+    }
   
       // promote 3: large with 4 toppings at 50% discount
       largePizzas.forEach(pizza => {
